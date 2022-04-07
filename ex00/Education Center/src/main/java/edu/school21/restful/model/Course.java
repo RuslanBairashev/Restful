@@ -8,4 +8,7 @@ public class Course {
     private Date endDate;
     private String name;
     private List<User> teachers;
+    private List<User> students;
+    private String description;
+    private List<Lesson> lessons;
 }
