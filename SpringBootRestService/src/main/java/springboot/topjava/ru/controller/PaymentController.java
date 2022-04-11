@@ -1,11 +1,14 @@
 package springboot.topjava.ru.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import springboot.topjava.ru.model.BaseResponse;
 import springboot.topjava.ru.model.PaymentRequest;
 
 @RestController
 @RequestMapping("/payment")
+@Api(description = "test")
 public class PaymentController {
 
     private final String sharedKey = "SHARED_KEY";
@@ -16,11 +19,13 @@ public class PaymentController {
     private static final int AUTH_FAILURE = 102;
 
     @GetMapping
+    @ApiOperation("test1")
     public BaseResponse showStatus() {
         return new BaseResponse(SUCCESS_STATUS, 1);
     }
 
     @PostMapping("/pay")
+    @ApiOperation("test2")
     public BaseResponse pay(@RequestParam(value = "key") String key, @RequestBody PaymentRequest request) {
 
         final BaseResponse response;
