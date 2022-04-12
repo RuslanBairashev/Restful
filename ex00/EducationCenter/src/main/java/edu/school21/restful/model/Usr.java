@@ -1,5 +1,7 @@
 package edu.school21.restful.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,7 +16,8 @@ public class Usr {
     private String login;
     private String password;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
     private UsrRole usrRole;
 
     public Usr() {
