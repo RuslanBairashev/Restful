@@ -1,51 +1,51 @@
 package edu.school21.restful.model;
 
-import java.sql.Time;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
 public class Lesson {
-    private Time startTime;
-    private Time endTime;
-    private Usr teacher;
-    private enum dayOfWeek {
-        SUNDAY,
-        MONDAY,
-        TUESDAY,
-        WEDNESDAY,
-        THURSDAY,
-        FRIDAY,
-        SATURDAY
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "LES_G")
+    private Long id;
+
+    private String startTime;
+    private String endTime;
+    //private Usr teacher;
+//    private enum dayOfWeek {
+//        SUNDAY,
+//        MONDAY,
+//        TUESDAY,
+//        WEDNESDAY,
+//        THURSDAY,
+//        FRIDAY,
+//        SATURDAY
+//    }
+
+    public Long getId() {
+        return id;
     }
 
-    public Lesson() {
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Lesson(Time startTime, Time endTime, Usr teacher) {
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.teacher = teacher;
-    }
-
-    public Time getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Time startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public Time getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Time endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
-    }
-
-    public Usr getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(Usr teacher) {
-        this.teacher = teacher;
     }
 }

@@ -1,25 +1,39 @@
 package edu.school21.restful.model;
 
+import javax.persistence.*;
+
+@Entity
 public class Usr {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "USR_G")
+    private Long id;
+
     private String firstName;
     private String lastName;
     private String login;
     private String password;
-    private enum role {
-        ADMINISTRATOR,
-        TEACHER,
-        STUDENT
-    }
+
+    @Enumerated(EnumType.ORDINAL)
+    private UsrRole usrRole;
 
     public Usr() {
-
     }
 
-    public Usr(String firstName, String lastName, String login, String password) {
+    public Usr(String firstName, String lastName, String login, String password, UsrRole usrRole) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.login = login;
         this.password = password;
+        this.usrRole = usrRole;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -52,5 +66,13 @@ public class Usr {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public UsrRole getUsrRole() {
+        return usrRole;
+    }
+
+    public void setUsrRole(UsrRole usrRole) {
+        this.usrRole = usrRole;
     }
 }
