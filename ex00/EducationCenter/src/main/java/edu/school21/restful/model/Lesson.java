@@ -11,6 +11,7 @@ public class Lesson {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "LES_G")
     private Long id;
 
+    private String name;
     private LocalTime startTime;
     private LocalTime endTime;
     private DayOfWeek dayOfWeek;
@@ -21,7 +22,8 @@ public class Lesson {
     public Lesson() {
     }
 
-    public Lesson(LocalTime startTime, LocalTime endTime, DayOfWeek dayOfWeek, Usr teacher) {
+    public Lesson(String name, LocalTime startTime, LocalTime endTime, DayOfWeek dayOfWeek, Usr teacher) {
+        this.name =name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.dayOfWeek = dayOfWeek;
@@ -34,6 +36,14 @@ public class Lesson {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public LocalTime getStartTime() {

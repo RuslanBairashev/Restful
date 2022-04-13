@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>List of users</title>
+    <title>List of courses</title>
     <style>
         body {
             font: 11pt Arial, Helvetica, sans-serif; /* Рубленый шрифт текста */
@@ -33,42 +33,34 @@
     </style>
 </head>
 <body>
-<h1>List of users</h1>
+<h1>List of courses</h1>
 <table width="1000" border="1" cellpadding="4" cellspacing="0">
     <thead bgcolor="#C0C0C0">
     <tr>
-        <th>firstName</th>
-        <th>lastName</th>
-        <th>login</th>
-        <th>Role</th>
+        <th>name</th>
+        <th>startDate</th>
+        <th>endDate</th>
+        <th>description</th>
     </tr>
     </thead>
     <tbody>
-    <#list users as usr>
+    <#list courses as course>
         <tr >
-            <td width="25%" align="center">${usr.firstName}</td>
-            <td width="25%" align="center">${usr.lastName}</td>
-            <td width="25%" align="center">
-                <a href="/users/${usr.id}">${usr.login}</a>
-            </td>
-            <td width="25%" align="center">${usr.usrRole.getName()}</td>
+            <td width="25%" align="center">${course.name}</td>
+            <td width="25%" align="center">${course.startDate}</td>
+            <td width="25%" align="center">${course.endDate}</td>
+            <td width="25%" align="center">${course.description}</td>
         </tr>
     </#list>
     </tbody>
 </table>
 <br/>
 <form method="post">
-    <input type="text" name="firstName" placeholder="Enter firstname">
-    <input type="text" name="lastName" placeholder="Enter lastname">
-    <input type="text" name="login" placeholder="Enter login">
-    <input type="text" name="password" placeholder="Enter password">
-
-    <select name="usrRole">
-        <#list roles as role>
-            <option value="${role}">${role.getName()}</option>
-        </#list>
-    </select>
-    <button type="submit">Add user</button>
+    <input type="text" name="name" placeholder="Enter name">
+    <input type="date" name="startDate" placeholder="Enter startDate">
+    <input type="date" name="endDate" placeholder="Enter endDate">
+    <input type="text" name="description" placeholder="Enter description">
+    <button type="submit">Add lesson</button>
 </form>
 </body>
 </html>

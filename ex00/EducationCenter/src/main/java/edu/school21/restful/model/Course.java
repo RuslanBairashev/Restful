@@ -1,29 +1,51 @@
 package edu.school21.restful.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+@Entity
 public class Course {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "COU_G")
+    private Long id;
+
+    @Temporal(TemporalType.DATE)
     private Date startDate;
+    @Temporal(TemporalType.DATE)
     private Date endDate;
     private String name;
-    private List<Usr> teachers;
-    private List<Usr> students;
+
+    @ElementCollection
+    private List<Long> teachers;
+
+    @ElementCollection
+    private List<Long> students;
+
     private String description;
-    private List<Lesson> lessons;
+
+    @ElementCollection
+    private List<Long> lessons;
 
     public Course() {
-
     }
 
-    public Course(Date startDate, Date endDate, String name, List<Usr> teachers, List<Usr> students, String description, List<Lesson> lessons) {
+    public Course(Date startDate, Date endDate, String name, String description) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.name = name;
-        this.teachers = teachers;
-        this.students = students;
         this.description = description;
-        this.lessons = lessons;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Date getStartDate() {
@@ -50,19 +72,19 @@ public class Course {
         this.name = name;
     }
 
-    public List<Usr> getTeachers() {
+    public List<Long> getTeachers() {
         return teachers;
     }
 
-    public void setTeachers(List<Usr> teachers) {
+    public void setTeachers(List<Long> teachers) {
         this.teachers = teachers;
     }
 
-    public List<Usr> getStudents() {
+    public List<Long> getStudents() {
         return students;
     }
 
-    public void setStudents(List<Usr> students) {
+    public void setStudents(List<Long> students) {
         this.students = students;
     }
 
@@ -74,11 +96,11 @@ public class Course {
         this.description = description;
     }
 
-    public List<Lesson> getLessons() {
+    public List<Long> getLessons() {
         return lessons;
     }
 
-    public void setLessons(List<Lesson> lessons) {
+    public void setLessons(List<Long> lessons) {
         this.lessons = lessons;
     }
 }

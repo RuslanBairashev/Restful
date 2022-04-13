@@ -37,6 +37,7 @@
 <table width="1000" border="1" cellpadding="4" cellspacing="0">
     <thead bgcolor="#C0C0C0">
     <tr>
+        <th>name</th>
         <th>startTime</th>
         <th>endTime</th>
         <th>dayOfWeek</th>
@@ -46,16 +47,18 @@
     <tbody>
     <#list lessons as lesson>
         <tr >
-            <td width="25%" align="center">${lesson.startTime}</td>
-            <td width="25%" align="center">${lesson.endTime}</td>
-            <td width="25%" align="center">${lesson.dayOfWeek}</td>
-            <td width="25%" align="center">${lesson.teacher.getFirstName()} ${lesson.teacher.getLastName()}</td>
+            <td width="20%" align="center">${lesson.name}</td>
+            <td width="20%" align="center">${lesson.startTime}</td>
+            <td width="20%" align="center">${lesson.endTime}</td>
+            <td width="20%" align="center">${lesson.dayOfWeek}</td>
+            <td width="20%" align="center">${lesson.teacher.getFirstName()} ${lesson.teacher.getLastName()}</td>
         </tr>
     </#list>
     </tbody>
 </table>
 <br/>
 <form method="post">
+    <input type="text" name="name" placeholder="Enter name">
     <input type="time" name="startTime" placeholder="Enter startTime">
     <input type="time" name="endTime" placeholder="Enter endTime">
 
@@ -69,7 +72,7 @@
             <option value="${teacher.getId()}">${teacher.getFirstName()}, ${teacher.getLastName()}</option>
         </#list>
     </select>
-    <button type="submit">Add lesson</button>
+    <button type="submit">Add course</button>
 </form>
 </body>
 </html>
