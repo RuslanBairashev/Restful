@@ -11,11 +11,33 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Arrays;
+
 @Controller
 public class UserController {
 
     @Autowired
     private UsrRepository usrRepository;
+
+    @GetMapping("/users")
+    public String getUsers(Model model) {
+        Iterable<Usr> usrs = usrRepository.findAll();
+        model.addAttribute("users", usrs);
+        model.addAttribute("roles", Arrays.asList(UsrRole.values()));
+        return "usersList";
+    }
+
+    @PostMapping("/users")
+    public String addUser(@RequestParam String firstName,
+                              @RequestParam String lastName,
+                              @RequestParam String login,
+                              @RequestParam String password,
+                              @RequestParam UsrRole usrRole,
+                              Model model) {
+        Usr usr = new Usr(firstName, lastName, login, password, usrRole);
+        usrRepository.save(usr);
+        return "redirect:/users";
+    }
 
     @GetMapping("/blog")
     public String blogMain(Model model) {
