@@ -38,28 +38,4 @@ public class UserController {
         usrRepository.save(usr);
         return "redirect:/users";
     }
-
-    @GetMapping("/blog")
-    public String blogMain(Model model) {
-        Iterable<Usr> usrs = usrRepository.findAll();
-        model.addAttribute("usr", usrs);
-        return "index";
-    }
-
-    @GetMapping("/blog/add")
-    public String blogAdd(Model model) {
-        return "blog-add";
-    }
-
-    @PostMapping("/blog/add")
-    public String blogPostAdd(@RequestParam String firstName,
-                              @RequestParam String lastName,
-                              @RequestParam String login,
-                              @RequestParam String password,
-                              @RequestParam UsrRole usrRole,
-                              Model model) {
-        Usr usr = new Usr(firstName, lastName, login, password, usrRole);
-        usrRepository.save(usr);
-        return "redirect:/blog";
-    }
 }
