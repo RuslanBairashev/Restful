@@ -11,6 +11,7 @@ public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "COU_G")
+    @SequenceGenerator(sequenceName = "COU_G", allocationSize = 1, name = "COU_G")
     private Long id;
 
     @Temporal(TemporalType.DATE)

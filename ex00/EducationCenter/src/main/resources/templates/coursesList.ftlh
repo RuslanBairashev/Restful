@@ -27,7 +27,9 @@
     <tbody>
     <#list courses as course>
         <tr >
-            <td width="25%" align="center">${course.name}</td>
+            <td width="25%" align="center">
+                <a href="/courses/${course.id}">${course.name}</a>
+            </td>
             <td width="25%" align="center">${course.startDate}</td>
             <td width="25%" align="center">${course.endDate}</td>
             <td width="25%" align="center">${course.description}</td>
@@ -41,7 +43,7 @@
     <input type="date" name="startDate" placeholder="Enter startDate">
     <input type="date" name="endDate" placeholder="Enter endDate">
     <input type="text" name="description" placeholder="Enter description">
-    <button type="submit">Add lesson</button>
+    <button type="submit">Add course</button>
 </form>
 </body>
 </html>

@@ -26,6 +26,18 @@ public class UserController {
         return "usersList";
     }
 
+    @PostMapping("/users")
+    public String addUser(@RequestParam String firstName,
+                          @RequestParam String lastName,
+                          @RequestParam String login,
+                          @RequestParam String password,
+                          @RequestParam UsrRole usrRole,
+                          Model model) {
+        Usr usr = new Usr(firstName, lastName, login, password, usrRole);
+        usrRepository.save(usr);
+        return "redirect:/users";
+    }
+
     @GetMapping("/users/{id}")
     public String getUser(@PathVariable(value = "id") Long id, Model model) {
         if (!usrRepository.existsById(id)) {
@@ -49,18 +61,6 @@ public class UserController {
         model.addAttribute("usr", res);
         model.addAttribute("roles", Arrays.asList(UsrRole.values()));
         return "userEdit";
-    }
-
-    @PostMapping("/users")
-    public String addUser(@RequestParam String firstName,
-                              @RequestParam String lastName,
-                              @RequestParam String login,
-                              @RequestParam String password,
-                              @RequestParam UsrRole usrRole,
-                              Model model) {
-        Usr usr = new Usr(firstName, lastName, login, password, usrRole);
-        usrRepository.save(usr);
-        return "redirect:/users";
     }
 
     @PostMapping("/users/{id}/edit")
