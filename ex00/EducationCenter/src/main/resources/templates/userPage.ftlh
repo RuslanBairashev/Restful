@@ -36,8 +36,9 @@
 </table>
 <a href="/users/${usr[0].getId()}/edit"}>Edit user</a>
 <br/>
-<a href="/users/${usr[0].getId()}/delete"}>Delete user</a>
-<br/>
+<form action="/users/${usr[0].getId()}/delete"} method="post">
+    <button type="type">Delete user</button>
+</form>
 
 </body>
 </html>

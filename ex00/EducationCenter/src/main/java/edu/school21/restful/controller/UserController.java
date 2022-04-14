@@ -85,6 +85,6 @@ public class UserController {
     public String deleteUser(@PathVariable(value = "id") Long id, Model model) {
         Usr usr = usrRepository.findById(id).orElseThrow(() -> new RuntimeException());
         usrRepository.delete(usr);
-        return "redirect:/index";
+        return "redirect:/users";
     }
 }
