@@ -34,7 +34,7 @@
         <br/>
     </tbody>
 </table>
-<a href="/courses/${course[0].getId()}/edit"}>Edit user</a>
+<a href="/courses/${course[0].getId()}/edit"}>Edit course</a>
 <br/>
 <form action="/courses/${course[0].getId()}/delete" method="post">
     <button type="type">Delete course</button>

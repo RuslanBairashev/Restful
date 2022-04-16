@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>List of lessons</title>
+    <title>Lesson page</title>
     <style>
         body {
             font: 11pt Arial, Helvetica, sans-serif; /* Рубленый шрифт текста */
@@ -14,7 +14,7 @@
     </style>
 </head>
 <body>
-<h1>List of lessons</h1>
+<h1>Lesson page</h1>
 <table width="1000" border="1" cellpadding="4" cellspacing="0">
     <thead bgcolor="#C0C0C0">
     <tr>
@@ -26,15 +26,14 @@
     </tr>
     </thead>
     <tbody>
-    <#list lessons as lesson>
-        <tr >
-            <td width="20%" align="center">${lesson.name}</td>
-            <td width="20%" align="center">${lesson.startTime}</td>
-            <td width="20%" align="center">${lesson.endTime}</td>
-            <td width="20%" align="center">${lesson.dayOfWeek}</td>
-            <td width="20%" align="center">${lesson.teacher.getFirstName()} ${lesson.teacher.getLastName()}</td>
+        <tr>
+            <td width="20%" align="center">${lesson[0].name}</td>
+            <td width="20%" align="center">${lesson[0].startTime}</td>
+            <td width="20%" align="center">${lesson[0].endTime}</td>
+            <td width="20%" align="center">${lesson[0].dayOfWeek}</td>
+            <td width="20%" align="center">${lesson[0].teacher.getFirstName()} ${lesson[0].teacher.getLastName()}</td>
         </tr>
-    </#list>
+        <br/>
     </tbody>
 </table>
 <br/>
@@ -53,7 +52,7 @@
             <option value="${teacher.getId()}">${teacher.getFirstName()}, ${teacher.getLastName()}</option>
         </#list>
     </select>
-    <button type="submit">Add lesson</button>
+    <button type="submit">Edit lesson</button>
 </form>
 </body>
 </html>

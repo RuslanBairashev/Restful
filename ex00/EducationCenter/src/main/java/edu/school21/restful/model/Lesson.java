@@ -1,5 +1,7 @@
 package edu.school21.restful.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
@@ -18,6 +20,9 @@ public class Lesson {
 
     @ManyToOne //manyLesson to oneTeacher
     private Usr teacher;
+
+//    @ManyToOne
+//    private Course course;
 
     public Lesson() {
     }

@@ -19,10 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class CourseController {
@@ -125,8 +122,80 @@ public class CourseController {
                             @RequestParam DayOfWeek dayOfWeek,
                             @RequestParam Usr teacher,
                             Model model) {
+        if (!courseRepository.existsById(id)) {
+            return "redirect:/courses";
+        }
+        Optional<Course> course = courseRepository.findById(id);
+        ArrayList<Course> res = new ArrayList<>();
+        course.ifPresent(res::add);
+        model.addAttribute("course", res);
         Lesson lesson = new Lesson(name, startTime, endTime, dayOfWeek, teacher);
+        res.get(0).getLessons().add(lesson);
         lessonRepository.save(lesson);
         return "redirect:/courses/{course-id}/lessons";
+    }
+
+    @GetMapping("/courses/{course-id}/lessons/{lesson-id}")
+    public String editLesson(@PathVariable(value = "lesson-id") Long lid,
+                             @PathVariable(value = "course-id") Long id, Model model) {
+        if (!courseRepository.existsById(id)) {
+            return "redirect:/courses/{course-id}/lessons";
+        }
+        Optional<Lesson> lesson = lessonRepository.findById(lid);
+        ArrayList<Lesson> res = new ArrayList<>();
+        lesson.ifPresent(res::add);
+        model.addAttribute("lesson", res);
+        Iterable<Usr> teachers = usrRepository.findAll();
+        model.addAttribute("teachers", teachers);
+        model.addAttribute("days", Arrays.asList(DayOfWeek.values()));
+        return "lessonEdit";
+    }
+
+    @PostMapping("/courses/{course-id}/lessons/{lesson-id}")
+    public String updateLesson(@PathVariable(value = "lesson-id") Long lid,
+                               @PathVariable(value = "course-id") Long id,
+                               @RequestParam String name,
+                               @RequestParam LocalTime startTime,
+                               @RequestParam LocalTime endTime,
+                               @RequestParam DayOfWeek dayOfWeek,
+                               @RequestParam Usr teacher,
+                               Model model) {
+        Lesson lesson = lessonRepository.findById(lid).orElseThrow(() -> new RuntimeException());
+        lesson.setName(name);
+        lesson.setStartTime(startTime);
+        lesson.setEndTime(endTime);
+        lesson.setDayOfWeek(dayOfWeek);
+        lesson.setTeacher(teacher);
+        lessonRepository.save(lesson);
+        return "redirect:/courses/{course-id}/lessons";
+    }
+
+    @PostMapping("/courses/{course-id}/delete/{lesson-id}")
+    public String deleteCourse(@PathVariable(value = "course-id") Long id,
+                               @PathVariable(value = "lesson-id") Long lid, Model model) {
+        Lesson lesson = lessonRepository.findById(lid).orElseThrow(() -> new RuntimeException());
+        lessonRepository.delete(lesson);
+        return "redirect:/courses/{course-id}/lessons";
+    }
+
+    @GetMapping("/courses/{course-id}/students")
+    public String getUsers(@PathVariable(value = "course-id") Long id, Model model) {
+        Iterable<Usr> usrs = usrRepository.findAll();
+        model.addAttribute("users", usrs);
+        model.addAttribute("roles", Arrays.asList(UsrRole.values()));
+        return "usersOfCourseList";
+    }
+
+    @PostMapping("/courses/{course-id}/students")
+    public String addUsers(@PathVariable(value = "course-id") Long id,
+                           @RequestParam Usr usr, Model model) {
+        Iterable<Usr> usrs = usrRepository.findAll();
+        model.addAttribute("users", usrs);
+//        Optional<Course> course = courseRepository.findById(id);
+//        ArrayList<Course> res = new ArrayList<>();
+//        course.ifPresent(res::add);
+//        model.addAttribute("course", res);
+        //res.get(0).getStudents().add(usr);
+        return "usersList";
     }
 }

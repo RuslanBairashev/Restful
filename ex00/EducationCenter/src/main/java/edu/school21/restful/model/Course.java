@@ -1,10 +1,10 @@
 package edu.school21.restful.model;
 
+import org.hibernate.annotations.Cascade;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 public class Course {
@@ -20,16 +20,16 @@ public class Course {
     private Date endDate;
     private String name;
 
-    @ElementCollection
-    private List<Long> teachers;
+    @OneToMany
+    private List<Usr> teachers = new ArrayList<>();
 
-    @ElementCollection
-    private List<Long> students;
+    @OneToMany
+    private List<Usr> students = new ArrayList<>();
 
     private String description;
 
-    @ElementCollection
-    private List<Long> lessons;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Lesson> lessons = new ArrayList<>();
 
     public Course() {
     }
@@ -73,19 +73,19 @@ public class Course {
         this.name = name;
     }
 
-    public List<Long> getTeachers() {
+    public List<Usr> getTeachers() {
         return teachers;
     }
 
-    public void setTeachers(List<Long> teachers) {
+    public void setTeachers(List<Usr> teachers) {
         this.teachers = teachers;
     }
 
-    public List<Long> getStudents() {
+    public List<Usr> getStudents() {
         return students;
     }
 
-    public void setStudents(List<Long> students) {
+    public void setStudents(List<Usr> students) {
         this.students = students;
     }
 
@@ -97,11 +97,11 @@ public class Course {
         this.description = description;
     }
 
-    public List<Long> getLessons() {
+    public List<Lesson> getLessons() {
         return lessons;
     }
 
-    public void setLessons(List<Long> lessons) {
+    public void setLessons(List<Lesson> lessons) {
         this.lessons = lessons;
     }
 }
