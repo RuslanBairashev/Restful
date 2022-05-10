@@ -19,14 +19,19 @@ public class Course {
     @Temporal(TemporalType.DATE)
     private Date endDate;
     private String name;
+    private String description;
 
-    @OneToMany
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "COURSE_X_TEACHER",
+            joinColumns = { @JoinColumn(name = "COURSE_ID") },
+            inverseJoinColumns = { @JoinColumn(name = "TEACHER_ID") })
     private List<Usr> teachers = new ArrayList<>();
 
-    @OneToMany
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "COURSE_X_STUDENT",
+            joinColumns = { @JoinColumn(name = "COURSE_ID") },
+            inverseJoinColumns = { @JoinColumn(name = "STUDENT_ID") })
     private List<Usr> students = new ArrayList<>();
-
-    private String description;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Lesson> lessons = new ArrayList<>();
@@ -73,6 +78,22 @@ public class Course {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<Lesson> getLessons() {
+        return lessons;
+    }
+
+    public void setLessons(List<Lesson> lessons) {
+        this.lessons = lessons;
+    }
+
     public List<Usr> getTeachers() {
         return teachers;
     }
@@ -89,19 +110,16 @@ public class Course {
         this.students = students;
     }
 
-    public String getDescription() {
-        return description;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Course course = (Course) o;
+        return getId().equals(course.getId()) && Objects.equals(getStartDate(), course.getStartDate()) && Objects.equals(getEndDate(), course.getEndDate()) && getName().equals(course.getName()) && Objects.equals(getDescription(), course.getDescription()) && Objects.equals(getTeachers(), course.getTeachers()) && Objects.equals(getStudents(), course.getStudents()) && Objects.equals(getLessons(), course.getLessons());
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public List<Lesson> getLessons() {
-        return lessons;
-    }
-
-    public void setLessons(List<Lesson> lessons) {
-        this.lessons = lessons;
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getStartDate(), getEndDate(), getName(), getDescription(), getTeachers(), getStudents(), getLessons());
     }
 }
