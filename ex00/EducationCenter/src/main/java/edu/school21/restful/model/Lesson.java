@@ -18,10 +18,10 @@ public class Lesson {
     private LocalTime endTime;
     private DayOfWeek dayOfWeek;
 
-    @ManyToOne //manyLesson to oneTeacher
+    @ManyToOne //manyLesson to one Teacher
     private Usr teacher;
 
-//    @ManyToOne
+//    @ManyToOne //manyLesson to one Course
 //    private Course course;
 
     public Lesson() {

@@ -20,31 +20,31 @@ import java.util.Arrays;
 @Controller
 public class LessonController {
 
-    @Autowired
-    private LessonRepository lessonRepository;
-
-    @Autowired
-    private UsrRepository usrRepository;
-
-    @GetMapping("/lessons")
-    public String getUsers(Model model) {
-        Iterable<Usr> teachers = usrRepository.findAll();
-        Iterable<Lesson> lessons = lessonRepository.findAll();
-        model.addAttribute("lessons", lessons);
-        model.addAttribute("teachers", teachers);
-        model.addAttribute("days", Arrays.asList(DayOfWeek.values()));
-        return "lessonsList";
-    }
-
-    @PostMapping("/lessons")
-    public String addUser(@RequestParam String name,
-                          @RequestParam LocalTime startTime,
-                          @RequestParam LocalTime endTime,
-                          @RequestParam DayOfWeek dayOfWeek,
-                          @RequestParam Usr teacher,
-                          Model model) {
-        Lesson lesson = new Lesson(name, startTime, endTime, dayOfWeek, teacher);
-        lessonRepository.save(lesson);
-        return "redirect:/lessons";
-    }
+//    @Autowired
+//    private LessonRepository lessonRepository;
+//
+//    @Autowired
+//    private UsrRepository usrRepository;
+//
+//    @GetMapping("/lessons")
+//    public String getUsers(Model model) {
+//        Iterable<Usr> teachers = usrRepository.findAll();
+//        Iterable<Lesson> lessons = lessonRepository.findAll();
+//        model.addAttribute("lessons", lessons);
+//        model.addAttribute("teachers", teachers);
+//        model.addAttribute("days", Arrays.asList(DayOfWeek.values()));
+//        return "lessonsList";
+//    }
+//
+//    @PostMapping("/lessons")
+//    public String addUser(@RequestParam String name,
+//                          @RequestParam LocalTime startTime,
+//                          @RequestParam LocalTime endTime,
+//                          @RequestParam DayOfWeek dayOfWeek,
+//                          @RequestParam Usr teacher,
+//                          Model model) {
+//        Lesson lesson = new Lesson(name, startTime, endTime, dayOfWeek, teacher);
+//        lessonRepository.save(lesson);
+//        return "redirect:/lessons";
+//    }
 }

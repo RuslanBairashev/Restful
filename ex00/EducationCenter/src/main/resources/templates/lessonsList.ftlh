@@ -26,7 +26,7 @@
     </tr>
     </thead>
     <tbody>
-    <#list lessons as lesson>
+    <#list lessons?filter(lessons -> lessons.id == courseid) as lesson>
         <tr >
             <td width="20%" align="center">${lesson.name}</td>
             <td width="20%" align="center">${lesson.startTime}</td>

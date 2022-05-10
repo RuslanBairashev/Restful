@@ -108,6 +108,7 @@ public class CourseController {
     public String getLessons(@PathVariable(value = "course-id") Long id, Model model) {
         Iterable<Usr> teachers = usrRepository.findAll();
         Iterable<Lesson> lessons = lessonRepository.findAll();
+        model.addAttribute("courseid", id);
         model.addAttribute("lessons", lessons);
         model.addAttribute("teachers", teachers);
         model.addAttribute("days", Arrays.asList(DayOfWeek.values()));
