@@ -1,6 +1,10 @@
 package edu.school21.restful.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Usr {
@@ -17,6 +21,24 @@ public class Usr {
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private UsrRole usrRole;
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
+            mappedBy = "teachers")
+    @JsonIgnore
+    private List<Course> coursesTch = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
+            mappedBy = "students")
+    @JsonIgnore
+    private List<Course> coursesStd = new ArrayList<>();
 
     public Usr() {
     }

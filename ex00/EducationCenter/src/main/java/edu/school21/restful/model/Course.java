@@ -18,16 +18,24 @@ public class Course {
     private String name;
     private String description;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "COURSE_X_TEACHER",
-            joinColumns = { @JoinColumn(name = "COURSE_ID") },
-            inverseJoinColumns = { @JoinColumn(name = "TEACHER_ID") })
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+    @JoinTable(name = "course_x_teacher",
+            joinColumns = { @JoinColumn(name = "course_id") },
+            inverseJoinColumns = { @JoinColumn(name = "user_id") })
     private List<Usr> teachers = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "COURSE_X_STUDENT",
-            joinColumns = { @JoinColumn(name = "COURSE_ID") },
-            inverseJoinColumns = { @JoinColumn(name = "STUDENT_ID") })
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+    @JoinTable(name = "course_x_student",
+            joinColumns = { @JoinColumn(name = "course_id") },
+            inverseJoinColumns = { @JoinColumn(name = "user_id") })
     private List<Usr> students = new ArrayList<>();
 
 //    @OneToMany(cascade = CascadeType.ALL)

@@ -192,11 +192,13 @@ public class CourseController {
                            @RequestParam Usr usr, Model model) {
         Iterable<Usr> usrs = usrRepository.findAll();
         model.addAttribute("users", usrs);
-//        Optional<Course> course = courseRepository.findById(id);
-//        ArrayList<Course> res = new ArrayList<>();
-//        course.ifPresent(res::add);
-//        model.addAttribute("course", res);
-        //res.get(0).getStudents().add(usr);
-        return "usersList";
+        model.addAttribute("courseid", id);
+        Optional<Course> course = courseRepository.findById(id);
+        ArrayList<Course> res = new ArrayList<>();
+        course.ifPresent(res::add);
+        model.addAttribute("course", res);
+        res.get(0).getStudents().add(usr);
+//        return "usersList";
+        return "usersOfCourseList";
     }
 }
