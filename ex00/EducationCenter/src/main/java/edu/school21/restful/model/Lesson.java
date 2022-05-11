@@ -1,6 +1,8 @@
 package edu.school21.restful.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.DayOfWeek;
@@ -21,18 +23,21 @@ public class Lesson {
     @ManyToOne //manyLesson to one Teacher
     private Usr teacher;
 
-//    @ManyToOne //manyLesson to one Course
-//    private Course course;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "course_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Course course;
 
     public Lesson() {
     }
 
-    public Lesson(String name, LocalTime startTime, LocalTime endTime, DayOfWeek dayOfWeek, Usr teacher) {
-        this.name =name;
+    public Lesson(String name, LocalTime startTime, LocalTime endTime, DayOfWeek dayOfWeek, Usr teacher, Course course) {
+        this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.dayOfWeek = dayOfWeek;
         this.teacher = teacher;
+        this.course = course;
     }
 
     public Long getId() {
@@ -81,5 +86,13 @@ public class Lesson {
 
     public void setTeacher(Usr teacher) {
         this.teacher = teacher;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 }

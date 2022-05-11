@@ -107,7 +107,7 @@ public class CourseController {
     @GetMapping("/courses/{course-id}/lessons")
     public String getLessons(@PathVariable(value = "course-id") Long id, Model model) {
         Iterable<Usr> teachers = usrRepository.findAll();
-        Iterable<Lesson> lessons = lessonRepository.findAll();
+        Iterable<Lesson> lessons = lessonRepository.findAll();//получать только для course-id
         model.addAttribute("courseid", id);
         model.addAttribute("lessons", lessons);
         model.addAttribute("teachers", teachers);
@@ -130,8 +130,8 @@ public class CourseController {
         ArrayList<Course> res = new ArrayList<>();
         course.ifPresent(res::add);
         model.addAttribute("course", res);
-        Lesson lesson = new Lesson(name, startTime, endTime, dayOfWeek, teacher);
-        res.get(0).getLessons().add(lesson);
+        Lesson lesson = new Lesson(name, startTime, endTime, dayOfWeek, teacher, course.get());
+        //res.get(0).getLessons().add(lesson);
         lessonRepository.save(lesson);
         return "redirect:/courses/{course-id}/lessons";
     }
@@ -172,7 +172,7 @@ public class CourseController {
     }
 
     @PostMapping("/courses/{course-id}/delete/{lesson-id}")
-    public String deleteCourse(@PathVariable(value = "course-id") Long id,
+    public String deleteLesson(@PathVariable(value = "course-id") Long id,
                                @PathVariable(value = "lesson-id") Long lid, Model model) {
         Lesson lesson = lessonRepository.findById(lid).orElseThrow(() -> new RuntimeException());
         lessonRepository.delete(lesson);

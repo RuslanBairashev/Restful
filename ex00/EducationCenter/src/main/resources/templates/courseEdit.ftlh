@@ -42,5 +42,9 @@
     <input type="text" name="description" value=${course[0].getDescription()}>
     <button type="submit">Edit lesson</button>
 </form>
+<br/>
+<form action="/courses/${course[0].getId()}/delete" method="post">
+    <button type="type">Delete course</button>
+</form>
 </body>
 </html>

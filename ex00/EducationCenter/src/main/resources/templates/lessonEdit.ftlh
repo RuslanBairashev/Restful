@@ -52,7 +52,11 @@
             <option value="${teacher.getId()}">${teacher.getFirstName()}, ${teacher.getLastName()}</option>
         </#list>
     </select>
-    <button type="submit">Edit lesson</button>
+    <button type="submit">Update lesson</button>
+</form>
+<br/>
+<form action="/courses/${lesson[0].getCourse().getId()}/delete/${lesson[0].id}" method="post">
+    <button type="type">Delete lesson</button>
 </form>
 </body>
 </html>

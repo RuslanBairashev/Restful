@@ -34,6 +34,8 @@
         <br/>
     </tbody>
 </table>
+<a href="/courses/${course[0].getId()}/lessons"}>Show lessons</a>
+<br/>
 <a href="/courses/${course[0].getId()}/edit"}>Edit course</a>
 <br/>
 <form action="/courses/${course[0].getId()}/delete" method="post">

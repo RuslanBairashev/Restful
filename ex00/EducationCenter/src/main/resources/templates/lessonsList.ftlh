@@ -26,9 +26,11 @@
     </tr>
     </thead>
     <tbody>
-    <#list lessons?filter(lessons -> lessons.id == courseid) as lesson>
+    <#list lessons?filter(lessons -> lessons.getCourse().getId() == courseid) as lesson>
         <tr >
-            <td width="20%" align="center">${lesson.name}</td>
+            <td width="20%" align="center">
+                <a href="/courses/${courseid}/lessons/${lesson.id}">${lesson.name}</a>
+            </td>
             <td width="20%" align="center">${lesson.startTime}</td>
             <td width="20%" align="center">${lesson.endTime}</td>
             <td width="20%" align="center">${lesson.dayOfWeek}</td>

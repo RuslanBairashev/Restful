@@ -1,8 +1,5 @@
 package edu.school21.restful.model;
 
-import org.hibernate.annotations.Cascade;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.util.*;
 
@@ -33,8 +30,8 @@ public class Course {
             inverseJoinColumns = { @JoinColumn(name = "STUDENT_ID") })
     private List<Usr> students = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Lesson> lessons = new ArrayList<>();
+//    @OneToMany(cascade = CascadeType.ALL)
+//    private List<Lesson> lessons = new ArrayList<>();
 
     public Course() {
     }
@@ -86,14 +83,6 @@ public class Course {
         this.description = description;
     }
 
-    public List<Lesson> getLessons() {
-        return lessons;
-    }
-
-    public void setLessons(List<Lesson> lessons) {
-        this.lessons = lessons;
-    }
-
     public List<Usr> getTeachers() {
         return teachers;
     }
@@ -110,16 +99,4 @@ public class Course {
         this.students = students;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Course course = (Course) o;
-        return getId().equals(course.getId()) && Objects.equals(getStartDate(), course.getStartDate()) && Objects.equals(getEndDate(), course.getEndDate()) && getName().equals(course.getName()) && Objects.equals(getDescription(), course.getDescription()) && Objects.equals(getTeachers(), course.getTeachers()) && Objects.equals(getStudents(), course.getStudents()) && Objects.equals(getLessons(), course.getLessons());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getStartDate(), getEndDate(), getName(), getDescription(), getTeachers(), getStudents(), getLessons());
-    }
 }
